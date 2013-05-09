@@ -1,0 +1,233 @@
+<!doctype html>
+<html class="no-js ui-mobile-rendering" lang="en" manifest="project.manifest">
+<head>
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="114x114" href="img/touch-icon-114.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="img/touch-icon-72.png" />
+<link rel="apple-touch-icon" href="img/touch-icon-57.png" />
+<link rel="stylesheet" href="/css/naafe.css" />
+<link rel="stylesheet" href="/css/lib/jquery.mobile.structure-1.3.0.min.css" />
+<link rel="stylesheet" href="/css/common.css" />
+<script src="/js/lib/require.js" data-main="js/main"></script>
+<script type="text/x-mustache-template" id="menu_template">
+<div data-role="header">
+	<h1 style="text-align: center; white-space: normal">{{ name }}</h1>
+</div>
+<div data-role="content">
+	<button id="schedule_button">Schedule</button>
+	<button id="speakers_button">Speakers</button>
+	<button id="presentations_button">Presentations</button>
+	<ul id="menu_messages_listview" data-role="listview" data-inset="true">
+	</ul>
+	<button id="about_button">About</button>
+	<button class="reload_button"></button>
+</div>
+</script>
+<script type="text/x-mustache-template" id="conference_template">
+	<div data-role="header">
+		<a data-icon="back" class="back_button">Conf.</a>
+		<h1>Sched.</h1>
+	</div>
+    <div data-role="content">
+		<ul id="tracks_listview" data-role="listview">
+		</ul>
+    </div>
+</script>
+<script type="text/x-mustache-template" id="track_template">
+<div data-role="header">
+	<a data-icon="back" class="back_button">Sched.</a>
+	<h1>Track</h1>
+</div>
+<div data-role="content">
+	<ul id="sessions_listview" data-role="listview">
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">{{ name }}</h3></li>
+	</ul>
+</div>
+</script>
+<script type="text/x-mustache-template" id="track_item_template">
+<a><h3 style="white-space: normal">{{ name }}</h3>
+<p id="track_item_summary" style="white-space: normal"></p></a>
+</script>
+<script type="text/x-mustache-template" id="session_item_template">
+<h3 style="white-space: normal">{{ readableTimeRange }}</h3>
+<h3 style="white-space: normal">{{ name }}</h3>
+<h3 style="white-space: normal">{{ location }}</h3>
+<p style="white-space: normal" id="session_item_summary"></p>
+</script>
+<script type="text/x-mustache-template" id="presentation_item_template">
+<a><h3 style="white-space: normal"> {{ name }}</h3>
+<p style="white-space: normal" id="presentation_item_speakers_div"></p></a>
+</script>
+<script type="text/x-mustache-template" id="presentation_template">
+<div data-role="header">
+	<a data-icon="back" class="back_button"></a>
+	<h1>Prstn</h1>
+</div>
+<div data-role="content">
+	<ul id="speaker_presentations_listview" data-role="listview">
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">{{ name }}</h3></li>
+	</ul>
+	<p>&nbsp;</p>
+	<h3>Track: <button id="track_button" data-inline="true" data-mini="true"></button></h3>
+	<div id="path_session_div"><h3>Session:</h3></div>
+	<div id="speakers_div"></div>
+	<div id="presentation_summary"></div>
+</div>
+</script>
+<script type="text/x-mustache-template" id="speaker_item_template">
+<a>{{ last }}, {{ first }}</a>
+</script>
+<script type="text/x-mustache-template" id="speaker_template">
+<div data-role="header">
+	<a data-icon="back" class="back_button">Spkrs</a>
+	<h1>Spkr</h1>
+</div>
+<div data-role="content">
+	<ul id="speaker_presentations_listview" data-role="listview">
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">{{ last }}, {{ first }}</h3></li>
+	</ul>
+</div>
+</script>
+<script type="text/x-mustache-template" id="speaker_presentation_item_template">
+<a><h3 style="white-space: normal">Track: {{ trackName }}</h3>
+<h3 style="white-space: normal">Session: {{ sessionReadableTimeRange }}</h3>
+<h3 style="white-space: normal"> {{ name }}</h3></a>
+</script>
+</head>
+<body>
+<div id="block-ui"></div>
+<div id="initialize" data-role="page" data-title="">
+	<div data-role="header">
+		<h1></h1>
+	</div>
+    <div data-role="content">
+    </div>
+</div>
+<div id="error" data-role="page" data-title="" data-close-btn="none">
+	<div data-role="header">
+		<h1>Alert</h1>
+	</div>
+    <div data-role="content">
+	    <p style="text-align: center">A network error has occurred; check your
+	    network connectivity and try again.</p>
+	    <button class="reload_button" data-theme="f">Reload Application</button>
+    </div>
+</div>
+<div id="menu" data-role="page">
+</div>
+<div id="conference" data-role="page">
+</div>
+<div id="speakers" data-role="page">
+	<div data-role="header">
+		<a data-icon="back" class="back_button">Conf.</a>
+		<h1>Spkrs</h1>
+	</div>
+    <div data-role="content">
+		<ul id="speakers_listview" data-role="listview" data-filter="true">
+		</ul>
+    </div>
+</div>
+<div id="presentations" data-role="page">
+	<div data-role="header">
+		<a data-icon="back" class="back_button">Conf.</a>
+		<h1>Prstns</h1>
+	</div>
+    <div data-role="content">
+		<ul id="presentations_listview" data-role="listview" data-filter="true">
+		</ul>
+    </div>
+</div>
+<div id="messages" data-role="page">
+	<div data-role="header">
+		<a data-icon="back" class="back_button">Conf.</a>
+		<h1>Msgs</h1>
+	</div>
+    <div data-role="content">
+		<ul id="messages_listview" data-role="listview" data-filter="true">
+		</ul>
+    </div>
+</div>
+<div id="about" data-role="page">
+	<div data-role="header">
+		<a data-icon="back" class="back_button">Conf.</a>
+		<h1>About</h1>
+	</div>
+    <div data-role="content">
+    	<p><b>Program Information</b></p>
+    	<p><i>Chuck Adams, Professor, Extension Marine Economics</i><br>
+		Food & Resource Economics Dept. & Florida Sea Grant<br>
+		Institute of Food and Agricultural Sciences<br>
+		1099 McCarty Hall | PO Box 110240<br>
+		Gainesville, FL 32611-0240<br>
+		Phone: 352-392-1826 Ext. 223<br>
+		Fax: 352-392-3646<br>
+		Email: <a href="mailto:cmadams@ufl.edu">cmadams@ufl.edu</a></p>
+ 
+		<p><i>Sherry L. Larkin, Professor</i><br>
+		Food & Resource Economics<br>
+		Institute of Food and Agricultural Sciences<br>
+		1117 McCarty Hall B | PO Box 110240<br>
+		Gainesville, FL 32611-0240<br>
+		Phone: 352-392-1845 Ext. 431<br>
+		Fax: 352-392-3646<br>
+		Email: <a href="mailto:slarkin@ufl.edu">slarkin@ufl.edu</a></p>
+		
+		<p><b>Meeting Information</b></p>
+		
+		<p><i>Angelica Williams, Conference Coordinator</i><br>
+		University of Florida, IFAS<br>
+		Office of Conferences and Institutes (OCI)<br> 
+		PO Box 110750 <br>
+		Gainesville, FL 32611<br> 
+		Phone: 352.392.5930 <br>
+		Fax: 352.392.9734 <br>
+		Email: <a href="mailto:amwilliams@ufl.edu">amwilliams@ufl.edu</a></p>
+		
+    	<ul data-role="listview" data-inset="true">
+    		<li data-role="list-divider">Platinum Sponsors</li>
+	    	<li><img src="img/about/uf.png">University of Florida IFAS Research</li>
+	    	<li data-role="list-divider">Gold Sponsors</li>
+	    	<li><img src="img/about/sea_grant.png">Sea Grant Florida</li>
+	    	<li><img src="img/about/ariel.png">Ariel Seafoods Inc.</li>
+	    	<li data-role="list-divider">Bronze Sponsors</li>
+	    	<li><img src="img/about/st_pete.png">St. Petersburg Clearwater</li>
+	    	<li data-role="list-divider">Friends of NAAFE Sponsors</li>
+	    	<li><img src="img/about/gsa.png">Gulf &amp; South Atlantic Fisheries Foundation, Inc.</li>
+	    	<li><img src="img/about/sfa.png">Southeastern Fisheries Association</li>
+	    	<li><img src="img/about/anderson.png">Lee G. Anderson, University of Deleware</li>
+	    	<li><img src="img/about/tfg.png">Taylor &amp; Francis Group</li>
+	    	<li><img src="img/about/sfrc.png">School of Forest Resources &amp; Conservation</li>
+	    	<li data-role="list-divider">Partner Organizations</li>
+	    	<li><img src="img/about/gulf.png">Gulf States Marine Fisheries Commission</li>
+	    	<li><img src="img/about/guy.png">Guy Harvey Ocean Foundation</li>
+		</ul>
+		<p><b>Dinner Banquet Seafood Donors</b></p>
+		<ul>
+			<li>Wood's Fisheries</li>
+			<li>Ariel Seafoods, Inc.</li>
+			<li>Pontchartrain Blue Crab, Inc.</li>
+			<li>Motivatit Seafoods, LLC</li>
+		</ul>
+		<p><b>MRE Foundation Donors</b></p>
+		<ul>
+			<li>Gary's Tackle Box (fishing rod)</li>
+			<li>Bonefish Grill ($50 gift card)</li>
+			<li>Outback Steakhouse ($45 gift card)</li>
+			<li>Carrabba's Italian Grill ($25 gift card)</li>
+			<li>Macaroni Grill ($30 gift card)</li>
+			<li>Key’s Fisheries ($210 gift card)</li>
+			<li>Book: Preference Data for Environmental Valuation: Combining Revealed and Stated Approaches  by Whitehead, Haab and Huang ($155 value)</li>
+			<li>Nature's Landing Management Company (condo in Cedar Key, FL)</li>
+			<li>Wine and Cheese Gallery (1 bottle wine)</li>
+			<li>Cedar Key Boat Rental (1 day boat rental in Cedar Key, FL)</li>
+			<li>John Moran Photography and Talking Walls (framed nature photo)</li>
+			<li>Tony Reisinger, Texas Sea Grant Marine Agent (mounted fish print)</li>
+			<li>Chainsaw Sculptures (metal fish)</li>
+			<li>Guy Harvey fish painting ($300 value)</li>
+		</ul>
+    </div>
+</div>
+</body>
