@@ -3,7 +3,7 @@ define(["backbone","models/TrackModel","backbonelocalstorage"], function(Backbon
     	localStorage: new Backbone.LocalStorage("tracks"),
         model: TrackModel,
         comparator: function(track) {
-        	return track.name();
+        	return track.order();
         }
     });
     return Collection;

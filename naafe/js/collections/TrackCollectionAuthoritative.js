@@ -2,7 +2,7 @@ define(["backbone","models/TrackModelAuthoratative"], function(Backbone,TrackMod
     var Collection = Backbone.Collection.extend( {
         model: TrackModelAuthoritative,
         comparator: function(track) {
-        	return track.name();
+        	return track.order();
         }
     });
     return Collection;

@@ -8,6 +8,9 @@ define(["backbone","collections/SessionCollection","backbonelocalstorage"],funct
     	summary: function() {
          	return this.get("summary");
         },
+        order: function() {
+        	return this.get("order");
+        },
     	conferenceId: function() {
          	return this.get("conferenceId");
         },

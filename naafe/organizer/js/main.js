@@ -1,9 +1,9 @@
 require.config({
       paths: {
-          "jquery": "/js/lib/jquery-1.9.1.min",
-          "jquerymobile": "/js/lib/jquery.mobile-1.3.0.min",
-          "underscore": "/js/lib/underscore-min",
-          "backbone": "/js/lib/backbone-min"
+          "jquery": "/js/lib/jquery",
+          "jquerymobile": "/js/lib/jquery.mobile",
+          "underscore": "/js/lib/underscore",
+          "backbone": "/js/lib/backbone"
       },
       shim: {
             "backbone": {
@@ -14,7 +14,7 @@ require.config({
 });
 
 require(["jquery"],function($) {
-	var options = {conferenceId: 1};
+	var options = {conferenceId: 3461};
 	$(document).on("mobileinit",
 			function(){
 				$.mobile.linkBindingEnabled = false;
