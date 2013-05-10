@@ -47,7 +47,7 @@ Files accompanying Jquery Mobile.
 * /css/images/icons-18-white.png
 * /css/images/icons-36-black.png
 * /css/images/icons-36-white.png
-* /css/lib/jquery.mobile.structure-1.3.0.min.css
+* /css/lib/jquery.mobile.structure.css
 
 JavaScript libraries.
 

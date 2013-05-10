@@ -14,7 +14,7 @@ require.config({
 });
 
 require(["jquery"],function($) {
-	var options = {conferenceId: 3461};
+	var options = {conferenceId: 1};
 	$(document).on("mobileinit",
 			function(){
 				$.mobile.linkBindingEnabled = false;

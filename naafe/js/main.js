@@ -22,7 +22,7 @@ require.config({
 });
 
 require(["jquery","date"],function($,timezoneJS) {
-	var options = {conferenceId: 3461};
+	var options = {conferenceId: 1};
 	$(document).on("mobileinit",
 			function(){
 				$.mobile.linkBindingEnabled = false;
