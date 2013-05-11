@@ -28,8 +28,6 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
 			var conferenceId = options.conferenceId;
 			new ErrorView({el: "#error"});
         	this.conference = new ConferenceModelAuthoratative({id: conferenceId});
-			$('#block-ui').show();
-			$.mobile.loading("show");
     		router = this;
     		this.conference.fetch({success: function() {
     			router.messages = new MessageCollectionAuthoritative();

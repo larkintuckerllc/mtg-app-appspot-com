@@ -35,8 +35,6 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
     		this.speakerpresentations = new SpeakerPresentationCollection();
     		this.speakers = new SpeakerCollection();
     		this.messages = new MessageCollection();
-			$('#block-ui').show();
-			$.mobile.loading("show");
     		router = this;
     		conferenceAuthoratative.fetch({success: function() {
     			var messagesAuthoritative = new MessageCollectionAuthoritative();

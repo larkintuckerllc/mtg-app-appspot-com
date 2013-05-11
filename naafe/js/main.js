@@ -21,7 +21,7 @@ require.config({
       }
 });
 
-require(["jquery","date"],function($,timezoneJS) {
+require(["jquery"],function($) {
 	var options = {conferenceId: 1};
 	$(document).on("mobileinit",
 			function(){
@@ -29,28 +29,32 @@ require(["jquery","date"],function($,timezoneJS) {
 				$.mobile.hashListeningEnabled = false;
 			}
 	);
-	timezoneJS.timezone.zoneFileBasePath = '/tz';
-	timezoneJS.timezone.init();	
-	var storage,
-    	fail,
-    	uid;
-	storage = window.localStorage;
-	if (storage != null) {
-		uid = new Date;
-		storage.setItem(uid, uid);
-		fail = storage.getItem(uid) != uid;
-		storage.removeItem(uid);
-		fail && (storage = false);
-	} else {
-		storage = false;
-	}
-	if (storage) {
-		require(["routers/Router"],function(Router) {
-			this.router = new Router(options);
-		});		
-	} else {
-		require(["routers/NoStorageRouter"],function(NoStorageRouter) {
-			this.router = new NoStorageRouter(options);
-		});
-	}
+	require(["date","jquerymobile"],function(timezoneJS) {
+		$('#block-ui').show();
+		$.mobile.loading("show");
+		timezoneJS.timezone.zoneFileBasePath = '/tz';
+		timezoneJS.timezone.init();	
+		var storage,
+	    	fail,
+	    	uid;
+		storage = window.localStorage;
+		if (storage != null) {
+			uid = new Date;
+			storage.setItem(uid, uid);
+			fail = storage.getItem(uid) != uid;
+			storage.removeItem(uid);
+			fail && (storage = false);
+		} else {
+			storage = false;
+		}
+		if (storage) {	
+			require(["routers/Router"],function(Router) {
+				this.router = new Router(options);
+			});
+		} else {
+			require(["routers/NoStorageRouter"],function(NoStorageRouter) {
+				this.router = new NoStorageRouter(options);
+			});
+		}
+	});
 });
