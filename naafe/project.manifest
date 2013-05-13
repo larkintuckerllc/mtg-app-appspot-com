@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2013-05-11v4
+# 2013-05-12v1
 
 CACHE:
 
@@ -46,6 +46,8 @@ js/main.js
 
 js/collections/MessageCollection.js
 js/collections/MessageCollectionAuthoritative.js
+js/collections/ParticipantCollection.js
+js/collections/ParticipantCollectionAuthoritative.js
 js/collections/PresentationCollection.js
 js/collections/PresentationCollectionAlpha.js
 js/collections/PresentationCollectionAlphaAuthoritative.js
@@ -63,6 +65,8 @@ js/models/ConferenceModel.js
 js/models/ConferenceModelAuthoratative.js
 js/models/MessageModel.js
 js/models/MessageModelAuthoratative.js
+js/models/ParticipantModel.js
+js/models/ParticipantModelAuthoritative.js
 js/models/PresentationModel.js
 js/models/PresentationModelAuthoritative.js
 js/models/SessionModel.js
@@ -83,6 +87,9 @@ js/views/ErrorView.js
 js/views/MenuView.js
 js/views/MessageItemView.js
 js/views/MessagesView.js
+js/views/ParticipantItemView.js
+js/views/ParticipantsView.js
+js/views/ParticipantView.js
 js/views/PresentationAlphaItemView.js
 js/views/PresentationItemView.js
 js/views/PresentationsView.js

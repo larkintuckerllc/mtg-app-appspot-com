@@ -4,6 +4,7 @@ define(["backbone","mustache","views/MessageItemView"],function(Backbone,Mustach
         	"click #schedule_button": "tracks",
         	"click #speakers_button": "speakers",
         	"click #presentations_button": "presentations",
+        	"click #participants_button": "participants",
         	"click #messages_button": "messages",
         	"click #about_button": "about",
         	"click .reload_button": "reload"
@@ -41,6 +42,9 @@ define(["backbone","mustache","views/MessageItemView"],function(Backbone,Mustach
         presentations: function() {
         	router.navPresentations();
         },
+        participants: function() {
+        	router.navParticipants();
+        },        
         messages: function() {
         	router.navMessages();
         },

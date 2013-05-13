@@ -1,12 +1,17 @@
 define(["backbone"],function(Backbone) {
     var View = Backbone.View.extend({
         events: {
-        	"click #edit_button": "edit",
+        	"click #schedule_button": "schedule",
+        	"click #registrants_button": "registrants",        	
         	"click #import_button": "import"
         },
-        edit: function() {
+        schedule: function() {
         	$.mobile.activePage.focus();        	
         	window.open("https://docs.google.com/spreadsheet/ccc?key=" + router.conference.spreadsheet() + "&usp=sharing");
+        },
+        registrants: function() {
+        	$.mobile.activePage.focus();        	
+        	window.open("https://docs.google.com/spreadsheet/ccc?key=" + router.conference.participants() + "&usp=sharing");
         },
         import: function() {
         	$.mobile.activePage.focus(); 

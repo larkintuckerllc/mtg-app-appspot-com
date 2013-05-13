@@ -5,11 +5,12 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         "collections/PresentationCollectionAuthoritative",
         "collections/SpeakerPresentationCollectionAuthoritative",
         "collections/SpeakerCollectionAuthoritative",
-        "collections/MessageCollectionAuthoritative", 
+        "collections/MessageCollectionAuthoritative",
+        "collections/ParticipantCollectionAuthoritative",        
         "views/ConferenceView","views/TrackView","views/PresentationView",
         "views/SpeakersView","collections/PresentationCollectionAlphaAuthoritative",
         "views/PresentationsView","views/SpeakerView",
-        "views/MessagesView","views/AboutView",
+        "views/MessagesView","views/AboutView","views/ParticipantsView","views/ParticipantView",
         "jquerymobile"],
 		function(Backbone,$,ErrorView,MenuView,
 				ConferenceModelAuthoratative,
@@ -19,10 +20,11 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
 				SpeakerPresentationCollectionAuthoritative,
 				SpeakerCollectionAuthoritative,
 				MessageCollectionAuthoritative,
+				ParticipantCollectionAuthoritative,
 				ConferenceView,TrackView,PresentationView,
 				SpeakersView,PresentationCollectionAlphaAuthoritative,
 				PresentationsView,SpeakerView,
-				MessagesView,AboutView) {
+				MessagesView,AboutView,ParticipantsView,ParticipantView) {
 		var Router = Backbone.Router.extend({
 		initialize: function(options) {
 			var conferenceId = options.conferenceId;
@@ -52,7 +54,14 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
 	                    			router.speakerpresentations = new SpeakerPresentationCollectionAuthoritative();
 	                    			router.speakerpresentations.url = "/conferences/" + router.conference.id + "/speakerpresentations";
 	                    			router.speakerpresentations.fetch({success: function() {
-	                    				router.start();
+	                                	router.participants = new ParticipantCollectionAuthoritative();
+	                    				router.participants.url = "/conferences/" + router.conference.id + "/participants";
+	                    				router.participants.fetch({success: function() {
+	                    					router.start();
+	                    				},
+	                                    error: function() {
+	                                    	router.error();
+	                                    }});
                             		},
                                     error: function() {
                                     	router.error();
@@ -93,6 +102,7 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         	new ConferenceView({el: "#conference",  model: this.conference});
         	new SpeakersView({el: "#speakers", collection: router.speakers});
         	new PresentationsView({el: "#presentations", collection: router.presentationsAlpha});
+        	new ParticipantsView({el: "#participants", collection: router.participants});  
         	new MessagesView({el: "#messages", collection: router.messages});
 			$.mobile.loading("hide");        	
 			$('#block-ui').hide();
@@ -109,6 +119,9 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         },
         navPresentations: function() {
         	$.mobile.changePage("#presentations",{reverse: false,changeHash: false});   
+        },
+        navParticipants: function() {
+        	$.mobile.changePage("#participants",{reverse: false,changeHash: false});   
         },
         navMessages: function() {
         	$.mobile.changePage("#messages",{reverse: false,changeHash: false});           	
@@ -136,6 +149,14 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
          	this.speakerView = new SpeakerView({id: "speaker", model: speaker});
             $("body").append(this.speakerView.el);
             $.mobile.changePage("#speaker",{reverse: true,changeHash: false});
+        },
+        navParticipant: function(participant) {
+        	if ((typeof this.participantView) != "undefined") {
+     			this.participantView.remove();
+     		}
+         	this.participantView = new ParticipantView({id: "participant", model: participant});
+            $("body").append(this.participantView.el);
+            $.mobile.changePage("#participant",{reverse: true,changeHash: false});
         },
         navAbout: function() {
            	$.mobile.changePage("#about",{reverse: false,changeHash: false});           	       	

@@ -20,6 +20,7 @@
 	<button id="schedule_button">Schedule</button>
 	<button id="speakers_button">Speakers</button>
 	<button id="presentations_button">Presentations</button>
+	<button id="participants_button">Registrants</button>
 	<ul id="menu_messages_listview" data-role="listview" data-inset="true">
 	</ul>
 	<button id="about_button">About</button>
@@ -28,8 +29,8 @@
 </script>
 <script type="text/x-mustache-template" id="conference_template">
 	<div data-role="header">
-		<a data-icon="back" class="back_button">Conf.</a>
-		<h1>Sched.</h1>
+		<a data-icon="back" class="back_button">Back</a>
+		<h1>Schedule</h1>
 	</div>
     <div data-role="content">
 		<ul id="tracks_listview" data-role="listview">
@@ -38,7 +39,7 @@
 </script>
 <script type="text/x-mustache-template" id="track_template">
 <div data-role="header">
-	<a data-icon="back" class="back_button">Sched.</a>
+	<a data-icon="back" class="back_button">Back</a>
 	<h1>Track</h1>
 </div>
 <div data-role="content">
@@ -63,8 +64,8 @@
 </script>
 <script type="text/x-mustache-template" id="presentation_template">
 <div data-role="header">
-	<a data-icon="back" class="back_button"></a>
-	<h1>Prstn</h1>
+	<a data-icon="back" class="back_button">Back</a>
+	<h1>Presentation</h1>
 </div>
 <div data-role="content">
 	<ul id="speaker_presentations_listview" data-role="listview">
@@ -82,8 +83,8 @@
 </script>
 <script type="text/x-mustache-template" id="speaker_template">
 <div data-role="header">
-	<a data-icon="back" class="back_button">Spkrs</a>
-	<h1>Spkr</h1>
+	<a data-icon="back" class="back_button">Back</a>
+	<h1>Speaker</h1>
 </div>
 <div data-role="content">
 	<ul id="speaker_presentations_listview" data-role="listview">
@@ -95,6 +96,20 @@
 <a><h3 style="white-space: normal">Track: {{ trackName }}</h3>
 <h3 style="white-space: normal">Session: {{ sessionReadableTimeRange }}</h3>
 <h3 style="white-space: normal"> {{ name }}</h3></a>
+</script>
+<script type="text/x-mustache-template" id="participant_item_template">
+<a>{{ last }}, {{ first }}</a>
+</script>
+<script type="text/x-mustache-template" id="participant_template">
+<div data-role="header">
+	<a data-icon="back" class="back_button">Back</a>
+	<h1>Registrant</h1>
+</div>
+<div data-role="content">
+	<ul id="participant_presentations_listview" data-role="listview">
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">{{ last }}, {{ first }}</h3>{{{ detail }}}</li>
+	</ul>
+</div>
 </script>
 </head>
 <body>
@@ -122,8 +137,8 @@
 </div>
 <div id="speakers" data-role="page">
 	<div data-role="header">
-		<a data-icon="back" class="back_button">Conf.</a>
-		<h1>Spkrs</h1>
+		<a data-icon="back" class="back_button">Back</a>
+		<h1>Speakers</h1>
 	</div>
     <div data-role="content">
 		<ul id="speakers_listview" data-role="listview" data-filter="true">
@@ -132,17 +147,27 @@
 </div>
 <div id="presentations" data-role="page">
 	<div data-role="header">
-		<a data-icon="back" class="back_button">Conf.</a>
-		<h1>Prstns</h1>
+		<a data-icon="back" class="back_button">Back</a>
+		<h1>Presentations</h1>
 	</div>
     <div data-role="content">
 		<ul id="presentations_listview" data-role="listview" data-filter="true">
 		</ul>
     </div>
 </div>
+<div id="participants" data-role="page">
+	<div data-role="header">
+		<a data-icon="back" class="back_button">Back</a>
+		<h1>Registrants</h1>
+	</div>
+    <div data-role="content">
+		<ul id="participants_listview" data-role="listview" data-filter="true">
+		</ul>
+    </div>
+</div>
 <div id="messages" data-role="page">
 	<div data-role="header">
-		<a data-icon="back" class="back_button">Conf.</a>
+		<a data-icon="back" class="back_button">Back</a>
 		<h1>Msgs</h1>
 	</div>
     <div data-role="content">
@@ -152,10 +177,19 @@
 </div>
 <div id="about" data-role="page">
 	<div data-role="header">
-		<a data-icon="back" class="back_button">Conf.</a>
+		<a data-icon="back" class="back_button">Back</a>
 		<h1>About</h1>
 	</div>
     <div data-role="content">
+		<p>NAAFE is the North American Association of Fisheries 
+		Economists. NAAFE is an international group of
+		industry, government and academic practitioners 
+		of fisheries economics. NAAFE holds biennial &amp;Forums&amp;
+		in odd years. The 2013 NAAFE Forum is being held in 
+		St. Petersburg, Florida, on St. Pete Beach at the
+		Tradewinds Island Grand Resort from May 21-24th. 
+		Visit the Forum’s website for additional detail: 
+		<a href="http://conference.ifas.ufl.edu/naafe/">conference.ifas.ufl.edu/naafe/</a>.</p>
     	<p><b>Program Information</b></p>
     	<p><i>Chuck Adams, Professor, Extension Marine Economics</i><br>
 		Food & Resource Economics Dept. & Florida Sea Grant<br>
@@ -228,7 +262,7 @@
 			<li>Chainsaw Sculptures (metal fish)</li>
 			<li>Guy Harvey fish painting ($300 value)</li>
 		</ul>
-		<p>2013-05-11v4</p>
+		<p>2013-05-12v1</p>
     </div>
 </div>
 </body>

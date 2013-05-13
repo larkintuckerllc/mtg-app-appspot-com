@@ -10,8 +10,7 @@ define(["backbone","mustache","views/SpeakerButtonView","util"],function(Backbon
         	this.$el.attr("data-title", router.conference.name()); 
         	var template = Mustache.compile($("#presentation_template").html());
            	this.$el.html(template(this.model));
-           	this.$el.find("#presentation_summary").html(util.simpleHTML(this.model.summary()));
-           	this.$el.find(".back_button").html(this.source.title);           	
+           	this.$el.find("#presentation_summary").html(util.simpleHTML(this.model.summary()));        	
            	this.$el.find("#track_button").html(util.noHTML(this.model.session().track().name()));
            	this.$el.find("#path_session_div").append("<p><b>" + this.model.session().readableTimeRange() + "</b></p>");
            	this.$el.find("#path_session_div").append("<p><b>" + util.noHTML(this.model.session().name()) + "</b></p>");

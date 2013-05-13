@@ -5,11 +5,12 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         "collections/PresentationCollection","collections/PresentationCollectionAuthoritative",
         "collections/SpeakerPresentationCollection","collections/SpeakerPresentationCollectionAuthoritative",
         "collections/SpeakerCollection","collections/SpeakerCollectionAuthoritative",
-        "collections/MessageCollection","collections/MessageCollectionAuthoritative",        
+        "collections/MessageCollection","collections/MessageCollectionAuthoritative", 
+        "collections/ParticipantCollection","collections/ParticipantCollectionAuthoritative",         
         "views/ConferenceView","views/TrackView","views/PresentationView",
         "views/SpeakersView","collections/PresentationCollectionAlpha",
         "views/PresentationsView","views/SpeakerView",
-        "views/MessagesView","views/AboutView",
+        "views/MessagesView","views/AboutView","views/ParticipantsView","views/ParticipantView",
         "jquerymobile"],
 		function(Backbone,$,ErrorView,MenuView,
 				ConferenceModel,ConferenceModelAuthoratative,
@@ -18,11 +19,12 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
 				PresentationCollection,PresentationCollectionAuthoritative,
 				SpeakerPresentationCollection,SpeakerPresentationCollectionAuthoritative,
 				SpeakerCollection,SpeakerCollectionAuthoritative,
-				MessageCollection,MessageCollectionAuthoritative,				
+				MessageCollection,MessageCollectionAuthoritative,	
+				ParticipantCollection,ParticipantCollectionAuthoritative,
 				ConferenceView,TrackView,PresentationView,
 				SpeakersView,PresentationCollectionAlpha,
 				PresentationsView,SpeakerView,
-				MessagesView,AboutView) {
+				MessagesView,AboutView,ParticipantsView,ParticipantView) {
 		var Router = Backbone.Router.extend({
 		initialize: function(options) {
 			var conferenceId = options.conferenceId;
@@ -34,6 +36,7 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
     		this.presentations = new PresentationCollection();
     		this.speakerpresentations = new SpeakerPresentationCollection();
     		this.speakers = new SpeakerCollection();
+    		this.participants = new ParticipantCollection();
     		this.messages = new MessageCollection();
     		router = this;
     		conferenceAuthoratative.fetch({success: function() {
@@ -87,102 +90,122 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
 					router.presentations.fetch({success: function() {
 			        	router.speakers.fetch({success: function() {
 			        		router.speakerpresentations.fetch({success: function() {
-			    				var speakerpresentationsLength = router.speakerpresentations.length;
-			    				for (var i=0; i < speakerpresentationsLength; i++) {
-			    					var speakerpresentation = router.speakerpresentations.pop();
-			    					speakerpresentation.destroy();	
-			    				}				
-			    				var speakersLength = router.speakers.length;
-			    				for (var i=0; i < speakersLength; i++) {
-			    					var speaker = router.speakers.pop();
-			    					speaker.destroy();     					
-			    				}
-		        	        	var presentationsLength = router.presentations.length;
-		        				for (var i=0; i < presentationsLength; i++) {
-		        					var presentation = router.presentations.pop();
-		        					presentation.destroy();     					
-		        				}
-	            				var sessionsLength = router.sessions.length;
-	            				for (var i=0; i < sessionsLength; i++) {
-	            					var session = router.sessions.pop();
-	            					session.destroy();     					
-	            				}
-                				var tracksLength = router.tracks.length;
-                				for (var i=0; i < tracksLength; i++) {
-                					var track = router.tracks.pop();
-                					track.destroy();
-                				}
-                	    		var tracksAuthoratative = new TrackCollectionAuthoratative();
-                	    		tracksAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/tracks";
-                	    		tracksAuthoratative.fetch({success: function() {
-                	    			tracksAuthoratative.each(function(track) {
-                    					router.tracks.create({id: track.id, name: track.name(), summary: track.summary(), conferenceId: track.conferenceId()});        					
-                    				});
-                	    			var sessionsAuthoratative = new SessionCollectionAuthoritative();
-                            		sessionsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/sessions";
-                	    			sessionsAuthoratative.fetch({success: function() {
-                        				sessionsAuthoratative.each(function(session) {
-                        					router.sessions.create({id: session.id, name: session.name(), start: session.start(), end: session.end(),
-                        						summary: session.summary(), location: session.location(), trackId: session.trackId()});
-                        				});
-                                  		var presentationsAuthoratative = new PresentationCollectionAuthoritative();
-                                		presentationsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/presentations";
-                                		presentationsAuthoratative.fetch({success: function() {
-                                			router.presentationsAlpha = new PresentationCollectionAlpha();
-                            				presentationsAuthoratative.each(function(presentation) {
-                            					var presentationNew = router.presentations.create({id: presentation.id, name: presentation.name(), order: presentation.order(),
-                            						summary: presentation.summary(), sessionId: presentation.sessionId()});
-                            					router.presentationsAlpha.add(presentationNew);		
-                            				});
-                            				var speakersAuthoratative = new SpeakerCollectionAuthoritative();
-                                    		speakersAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/speakers";
-                                    		speakersAuthoratative.fetch({success: function() {
-                                				speakersAuthoratative.each(function(speaker) {
-                                					router.speakers.create({id: speaker.id, first: speaker.first(), last: speaker.last()});
-                                				});
-                                				var speakerpresentationsAuthoratative = new SpeakerPresentationCollectionAuthoritative();
-                                        		speakerpresentationsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/speakerpresentations";
-                                        		speakerpresentationsAuthoratative.fetch({success: function() {
-                                    				speakerpresentationsAuthoratative.each(function(speakerpresentation) {
-                                    					router.speakerpresentations.create({id: speakerpresentation.id, speakerId: speakerpresentation.speakerId(),
-                                    						presentationId: speakerpresentation.presentationId(), order: speakerpresentation.order()});
-                                    				});
-                                    				router.conference.set("name",conferenceAuthoratative.name());
-                                    	    		router.conference.set("timezone",conferenceAuthoratative.timezone());
-                                    	    		router.conference.set("spreadsheet",conferenceAuthoratative.spreadsheet());
-                                    	    		router.conference.set("version",conferenceAuthoratative.version());    		
-                                    	    		router.conference.save();
-                                    				router.start(true);
-                                        		},
-                                        		error: function() {
-                                        			router.conference.set("version",-1);    		
-                	                	    		router.conference.save();
-                	                    			router.error();
-                                        		}});
-                                    		},
-                                    		error: function() {
-                                    			router.conference.set("version",-1);    		
-            	                	    		router.conference.save();
-            	                    			router.error();
-                                    		}});
-                                		},
-                                		error: function() {
-        	            	    			router.conference.set("version",-1);    		
-        	                	    		router.conference.save();
-        	                    			router.error();	
-                                		}});
-                        			},
-                        			error: function() {
-    	            	    			router.conference.set("version",-1);    		
-    	                	    		router.conference.save();
-    	                    			router.error();	
-                        			}});		
-	            	    		},
-	            	    		error: function() {
-	            	    			router.conference.set("version",-1);    		
-	                	    		router.conference.save();
-	                    			router.error();	
-	            	    		}});					
+			        			router.participants.fetch({success: function() {
+			        				var participantsLength = router.participants.length;
+				    				for (var i=0; i < participantsLength; i++) {
+				    					var participant = router.participants.pop();
+				    					participant.destroy();	
+				    				}
+				    				var speakerpresentationsLength = router.speakerpresentations.length;
+				    				for (var i=0; i < speakerpresentationsLength; i++) {
+				    					var speakerpresentation = router.speakerpresentations.pop();
+				    					speakerpresentation.destroy();	
+				    				}				
+				    				var speakersLength = router.speakers.length;
+				    				for (var i=0; i < speakersLength; i++) {
+				    					var speaker = router.speakers.pop();
+				    					speaker.destroy();     					
+				    				}
+			        	        	var presentationsLength = router.presentations.length;
+			        				for (var i=0; i < presentationsLength; i++) {
+			        					var presentation = router.presentations.pop();
+			        					presentation.destroy();     					
+			        				}
+		            				var sessionsLength = router.sessions.length;
+		            				for (var i=0; i < sessionsLength; i++) {
+		            					var session = router.sessions.pop();
+		            					session.destroy();     					
+		            				}
+	                				var tracksLength = router.tracks.length;
+	                				for (var i=0; i < tracksLength; i++) {
+	                					var track = router.tracks.pop();
+	                					track.destroy();
+	                				}
+	                	    		var tracksAuthoratative = new TrackCollectionAuthoratative();
+	                	    		tracksAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/tracks";
+	                	    		tracksAuthoratative.fetch({success: function() {
+	                	    			tracksAuthoratative.each(function(track) {
+	                    					router.tracks.create({id: track.id, name: track.name(), summary: track.summary(), conferenceId: track.conferenceId()});        					
+	                    				});
+	                	    			var sessionsAuthoratative = new SessionCollectionAuthoritative();
+	                            		sessionsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/sessions";
+	                	    			sessionsAuthoratative.fetch({success: function() {
+	                        				sessionsAuthoratative.each(function(session) {
+	                        					router.sessions.create({id: session.id, name: session.name(), start: session.start(), end: session.end(),
+	                        						summary: session.summary(), location: session.location(), trackId: session.trackId()});
+	                        				});
+	                                  		var presentationsAuthoratative = new PresentationCollectionAuthoritative();
+	                                		presentationsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/presentations";
+	                                		presentationsAuthoratative.fetch({success: function() {
+	                                			router.presentationsAlpha = new PresentationCollectionAlpha();
+	                            				presentationsAuthoratative.each(function(presentation) {
+	                            					var presentationNew = router.presentations.create({id: presentation.id, name: presentation.name(), order: presentation.order(),
+	                            						summary: presentation.summary(), sessionId: presentation.sessionId()});
+	                            					router.presentationsAlpha.add(presentationNew);		
+	                            				});
+	                            				var speakersAuthoratative = new SpeakerCollectionAuthoritative();
+	                                    		speakersAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/speakers";
+	                                    		speakersAuthoratative.fetch({success: function() {
+	                                				speakersAuthoratative.each(function(speaker) {
+	                                					router.speakers.create({id: speaker.id, first: speaker.first(), last: speaker.last()});
+	                                				});
+	                                				var speakerpresentationsAuthoratative = new SpeakerPresentationCollectionAuthoritative();
+	                                        		speakerpresentationsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/speakerpresentations";
+	                                        		speakerpresentationsAuthoratative.fetch({success: function() {
+	                                    				speakerpresentationsAuthoratative.each(function(speakerpresentation) {
+	                                    					router.speakerpresentations.create({id: speakerpresentation.id, speakerId: speakerpresentation.speakerId(),
+	                                    						presentationId: speakerpresentation.presentationId(), order: speakerpresentation.order()});
+	                                    				});
+		                                				var participantsAuthoratative = new ParticipantCollectionAuthoritative();
+		                                        		participantsAuthoratative.url = "/conferences/" + conferenceAuthoratative.id + "/participants";
+		                                        		participantsAuthoratative.fetch({success: function() {
+		                                    				participantsAuthoratative.each(function(participant) {
+		                                    					router.participants.create({id: participant.id, first: participant.first(), 
+		                                    						last: participant.last(), organization: participant.organization(), email: participant.email()});
+		                                    				});
+		                                    				router.conference.set("name",conferenceAuthoratative.name());
+		                                    	    		router.conference.set("timezone",conferenceAuthoratative.timezone());
+		                                    	    		router.conference.set("spreadsheet",conferenceAuthoratative.spreadsheet());
+		                                    	    		router.conference.set("version",conferenceAuthoratative.version());    		
+		                                    	    		router.conference.save();
+		                                    				router.start(true);
+		                                    			},
+		                                    			error: function() {
+		                                    				router.conference.set("version",-1);    		
+		                	                	    		router.conference.save();
+		                	                    			router.error();
+		                                    			}});
+	                                        		},
+	                                        		error: function() {
+	                                        			router.conference.set("version",-1);    		
+	                	                	    		router.conference.save();
+	                	                    			router.error();
+	                                        		}});
+	                                    		},
+	                                    		error: function() {
+	                                    			router.conference.set("version",-1);    		
+	            	                	    		router.conference.save();
+	            	                    			router.error();
+	                                    		}});
+	                                		},
+	                                		error: function() {
+	        	            	    			router.conference.set("version",-1);    		
+	        	                	    		router.conference.save();
+	        	                    			router.error();	
+	                                		}});
+	                        			},
+	                        			error: function() {
+	    	            	    			router.conference.set("version",-1);    		
+	    	                	    		router.conference.save();
+	    	                    			router.error();	
+	                        			}});		
+		            	    		},
+		            	    		error: function() {
+		            	    			router.conference.set("version",-1);    		
+		                	    		router.conference.save();
+		                    			router.error();	
+		            	    		}});
+			        			}});
         					}});
     					}});
 					}});
@@ -199,7 +222,9 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
 			        	});
 			        	router.speakers.fetch({success: function() {
 			        		router.speakerpresentations.fetch({success: function() {
-								router.start(online);
+			        			router.participants.fetch({success: function() {
+			        				router.start(online);	
+			        			}});
         					}});
     					}});
 					}});
@@ -217,6 +242,7 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         	new ConferenceView({el: "#conference",  model: this.conference});
         	new SpeakersView({el: "#speakers", collection: router.speakers});
         	new PresentationsView({el: "#presentations", collection: router.presentationsAlpha});
+        	new ParticipantsView({el: "#participants", collection: router.participants});        	
         	new MessagesView({el: "#messages", collection: router.messages});
 			$.mobile.loading("hide");
         	$('#block-ui').hide();
@@ -233,6 +259,9 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         },
         navPresentations: function() {
         	$.mobile.changePage("#presentations",{reverse: false,changeHash: false});   
+        },
+        navParticipants: function() {
+        	$.mobile.changePage("#participants",{reverse: false,changeHash: false});   
         },
         navMessages: function() {
         	$.mobile.changePage("#messages",{reverse: false,changeHash: false});           	
@@ -260,6 +289,14 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
          	this.speakerView = new SpeakerView({id: "speaker", model: speaker});
             $("body").append(this.speakerView.el);
             $.mobile.changePage("#speaker",{reverse: true,changeHash: false});
+        },
+        navParticipant: function(participant) {
+        	if ((typeof this.participantView) != "undefined") {
+     			this.participantView.remove();
+     		}
+         	this.participantView = new ParticipantView({id: "participant", model: participant});
+            $("body").append(this.participantView.el);
+            $.mobile.changePage("#participant",{reverse: true,changeHash: false});
         },
         navAbout: function() {
            	$.mobile.changePage("#about",{reverse: false,changeHash: false});           	       	

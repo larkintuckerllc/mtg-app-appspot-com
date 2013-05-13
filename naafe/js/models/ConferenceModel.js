@@ -11,6 +11,9 @@ define(["backbone","backbonelocalstorage"],function(Backbone) {
         spreadsheet: function() {
          	return this.get("spreadsheet");
         },
+        participants: function() {
+         	return this.get("participants");
+        },
         version: function() {
         	return this.get("version");
         },

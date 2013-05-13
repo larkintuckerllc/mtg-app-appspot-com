@@ -33,28 +33,15 @@ require(["jquery"],function($) {
 		$('#block-ui').show();
 		$.mobile.loading("show");
 		timezoneJS.timezone.zoneFileBasePath = '/tz';
-		timezoneJS.timezone.init();	
-		var storage,
-	    	fail,
-	    	uid;
-		storage = window.localStorage;
-		if (storage != null) {
-			uid = new Date;
-			storage.setItem(uid, uid);
-			fail = storage.getItem(uid) != uid;
-			storage.removeItem(uid);
-			fail && (storage = false);
-		} else {
-			storage = false;
-		}
-		if (storage) {	
+		timezoneJS.timezone.init();
+		if ((typeof window.localStorage != "undefined") && (window.localStorage != null)) {
 			require(["routers/Router"],function(Router) {
 				this.router = new Router(options);
 			});
 		} else {
 			require(["routers/NoStorageRouter"],function(NoStorageRouter) {
 				this.router = new NoStorageRouter(options);
-			});
+			});	
 		}
 	});
 });
