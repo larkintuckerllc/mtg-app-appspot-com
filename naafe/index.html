@@ -27,6 +27,101 @@
 	<button class="reload_button"></button>
 </div>
 </script>
+<script type="text/x-mustache-template" id="about_template">
+<div data-role="header">
+	<a data-icon="back" class="back_button">Back</a>
+	<h1>About</h1>
+</div>
+<div data-role="content">
+	<ul id="sessions_listview" data-role="listview">
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">{{ name }}</h3></li>
+		<li><p style="white-space: normal">
+		NAAFE is the North American Association of Fisheries 
+		Economists. NAAFE is an international group of
+		industry, government and academic practitioners 
+		of fisheries economics. NAAFE holds biennial &amp;Forums&amp;
+		in odd years. The 2013 NAAFE Forum is being held in 
+		St. Petersburg, Florida, on St. Pete Beach at the
+		Tradewinds Island Grand Resort from May 21-24th. 
+		Visit the Forum’s website for additional detail: 
+		<a target="_blank" href="http://conference.ifas.ufl.edu/naafe/">conference.ifas.ufl.edu/naafe/</a>.</p></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Program Information</h3></li>
+
+		<li><h3 style="white-space: normal">Chuck Adams, Professor, Extension Marine Economics</h3>
+		<p style="white-space: normal">Food & Resource Economics Dept. & Florida Sea Grant<br>
+		Institute of Food and Agricultural Sciences<br>
+		1099 McCarty Hall | PO Box 110240<br>
+		Gainesville, FL 32611-0240<br>
+		Phone: 352-392-1826 Ext. 223<br>
+		Fax: 352-392-3646<br>
+		Email: <a href="mailto:cmadams@ufl.edu">cmadams@ufl.edu</a></p></li>
+
+		<li><h3 style="white-space: normal">Sherry L. Larkin, Professor</h3>
+		<p style="white-space: normal">Food & Resource Economics Dept.<br>
+		Institute of Food and Agricultural Sciences<br>
+		1117 McCarty Hall B | PO Box 110240<br>
+		Gainesville, FL 32611-0240<br>
+		Phone: 352-392-1845 Ext. 431<br>
+		Fax: 352-392-3646<br>
+		Email: <a href="mailto:slarkin@ufl.edu">slarkin@ufl.edu</a></p></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Meeting Information</h3></li>
+
+		<li><h3 style="white-space: normal">Angelica Williams, Conference Coordinator</h3><br>
+		<p style="white-space: normal">University of Florida, IFAS<br>
+		Office of Conferences and Institutes (OCI)<br> 
+		PO Box 110750 <br>
+		Gainesville, FL 32611<br> 
+		Phone: 352.392.5930 <br>
+		Fax: 352.392.9734 <br>
+		Email: <a href="mailto:amwilliams@ufl.edu">amwilliams@ufl.edu</a></p></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Platinum Sponsors</h3></li>
+		<li><img src="img/about/uf.png"><h3 style="white-space: normal">University of Florida IFAS Research</h3><br>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Gold Sponsors</h3></li>
+	    <li><img src="img/about/sea_grant.png"><h3 style="white-space: normal">Sea Grant Florida</h3></li>
+	    <li><img src="img/about/ariel.png"><h3 style="white-space: normal">Ariel Seafoods Inc.</h3></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Bronze Sponsors</h3></li>
+		<li><img src="img/about/st_pete.png"><h3 style="white-space: normal">St. Petersburg Clearwater</h3></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Friends of NAAFE Sponsors</h3></li>
+		<li><img src="img/about/gsa.png"><h3 style="white-space: normal">Gulf &amp; South Atlantic Fisheries Foundation, Inc.</h3></li>
+	   	<li><img src="img/about/sfa.png"><h3 style="white-space: normal">Southeastern Fisheries Association</h3></li>
+	   	<li><img src="img/about/anderson.png"><h3 style="white-space: normal">Lee G. Anderson, University of Deleware</h3></li>
+	   	<li><img src="img/about/tfg.png"><h3 style="white-space: normal">Taylor &amp; Francis Group</h3></li>
+	   	<li><img src="img/about/sfrc.png"><h3 style="white-space: normal">School of Forest Resources &amp; Conservation</h3></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Partner Organizations</h3></li>
+	    <li><img src="img/about/gulf.png"><h3 style="white-space: normal">Gulf States Marine Fisheries Commission</h3></li>
+	    <li><img src="img/about/guy.png"><h3 style="white-space: normal">Guy Harvey Ocean Foundation</h3></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">Dinner Banquet Seafood Donors</h3></li>
+		<li><h3 style="white-space: normal">Wood's Fisheries</h3></li>		
+		<li><h3 style="white-space: normal">Ariel Seafoods, Inc.</h3></li>		
+		<li><h3 style="white-space: normal">Pontchartrain Blue Crab, Inc.</h3></li>
+		<li><h3 style="white-space: normal">Motivatit Seafoods, LLC</h3></li>
+
+		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">MRE Foundation Donors</h3></li>
+		<li><h3 style="white-space: normal">Gary's Tackle Box (fishing rod)</h3></li>
+		<li><h3 style="white-space: normal">Bonefish Grill ($50 gift card)</h3></li>
+		<li><h3 style="white-space: normal">Outback Steakhouse ($45 gift card)</h3></li>
+		<li><h3 style="white-space: normal">Carrabba's Italian Grill ($25 gift card)</h3></li>
+		<li><h3 style="white-space: normal">Macaroni Grill ($30 gift card)</h3></li>
+		<li><h3 style="white-space: normal">Key’s Fisheries ($210 gift card)</h3></li>
+		<li><h3 style="white-space: normal">Book: Preference Data for Environmental Valuation: Combining Revealed and Stated Approaches  by Whitehead, Haab and Huang ($155 value)</h3></li>
+		<li><h3 style="white-space: normal">Nature's Landing Management Company (condo in Cedar Key, FL)</h3></li>
+		<li><h3 style="white-space: normal">Wine and Cheese Gallery (1 bottle wine)</h3></li>
+		<li><h3 style="white-space: normal">Cedar Key Boat Rental (1 day boat rental in Cedar Key, FL)</h3></li>
+		<li><h3 style="white-space: normal">John Moran Photography and Talking Walls (framed nature photo)</h3></li>
+		<li><h3 style="white-space: normal">Tony Reisinger, Texas Sea Grant Marine Agent (mounted fish print)</h3></li>
+		<li><h3 style="white-space: normal">Chainsaw Sculptures (metal fish)</h3></li>
+		<li><h3 style="white-space: normal">Guy Harvey fish painting ($300 value)</h3></li>
+	</ul>
+    </div>
+</script>
 <script type="text/x-mustache-template" id="conference_template">
 	<div data-role="header">
 		<a data-icon="back" class="back_button">Back</a>
@@ -68,14 +163,12 @@
 	<h1>Presentation</h1>
 </div>
 <div data-role="content">
-	<ul id="speaker_presentations_listview" data-role="listview">
+	<ul id="presentation_detail_listview" data-role="listview">
 		<li data-role="list-divider"><h3 style="text-align: center; white-space: normal">{{ name }}</h3></li>
+		<li><h3 style="white-space: normal">Track: <button id="track_button" data-inline="true" data-mini="true"></button></h3></li>
+		<li><h3 style="white-space: normal">Session:</h3>
+		<div id="path_session_div"></div></li>		
 	</ul>
-	<p>&nbsp;</p>
-	<h3>Track: <button id="track_button" data-inline="true" data-mini="true"></button></h3>
-	<div id="path_session_div"><h3>Session:</h3></div>
-	<div id="speakers_div"></div>
-	<div id="presentation_summary"></div>
 </div>
 </script>
 <script type="text/x-mustache-template" id="speaker_item_template">
@@ -133,6 +226,8 @@
 </div>
 <div id="menu" data-role="page">
 </div>
+<div id="about" data-role="page">
+</div>
 <div id="conference" data-role="page">
 </div>
 <div id="speakers" data-role="page">
@@ -173,96 +268,6 @@
     <div data-role="content">
 		<ul id="messages_listview" data-role="listview" data-filter="true">
 		</ul>
-    </div>
-</div>
-<div id="about" data-role="page">
-	<div data-role="header">
-		<a data-icon="back" class="back_button">Back</a>
-		<h1>About</h1>
-	</div>
-    <div data-role="content">
-		<p>NAAFE is the North American Association of Fisheries 
-		Economists. NAAFE is an international group of
-		industry, government and academic practitioners 
-		of fisheries economics. NAAFE holds biennial &amp;Forums&amp;
-		in odd years. The 2013 NAAFE Forum is being held in 
-		St. Petersburg, Florida, on St. Pete Beach at the
-		Tradewinds Island Grand Resort from May 21-24th. 
-		Visit the Forum’s website for additional detail: 
-		<a href="http://conference.ifas.ufl.edu/naafe/">conference.ifas.ufl.edu/naafe/</a>.</p>
-    	<p><b>Program Information</b></p>
-    	<p><i>Chuck Adams, Professor, Extension Marine Economics</i><br>
-		Food & Resource Economics Dept. & Florida Sea Grant<br>
-		Institute of Food and Agricultural Sciences<br>
-		1099 McCarty Hall | PO Box 110240<br>
-		Gainesville, FL 32611-0240<br>
-		Phone: 352-392-1826 Ext. 223<br>
-		Fax: 352-392-3646<br>
-		Email: <a href="mailto:cmadams@ufl.edu">cmadams@ufl.edu</a></p>
- 
-		<p><i>Sherry L. Larkin, Professor</i><br>
-		Food & Resource Economics<br>
-		Institute of Food and Agricultural Sciences<br>
-		1117 McCarty Hall B | PO Box 110240<br>
-		Gainesville, FL 32611-0240<br>
-		Phone: 352-392-1845 Ext. 431<br>
-		Fax: 352-392-3646<br>
-		Email: <a href="mailto:slarkin@ufl.edu">slarkin@ufl.edu</a></p>
-		
-		<p><b>Meeting Information</b></p>
-		
-		<p><i>Angelica Williams, Conference Coordinator</i><br>
-		University of Florida, IFAS<br>
-		Office of Conferences and Institutes (OCI)<br> 
-		PO Box 110750 <br>
-		Gainesville, FL 32611<br> 
-		Phone: 352.392.5930 <br>
-		Fax: 352.392.9734 <br>
-		Email: <a href="mailto:amwilliams@ufl.edu">amwilliams@ufl.edu</a></p>
-		
-    	<ul data-role="listview" data-inset="true">
-    		<li data-role="list-divider">Platinum Sponsors</li>
-	    	<li><img src="img/about/uf.png">University of Florida IFAS Research</li>
-	    	<li data-role="list-divider">Gold Sponsors</li>
-	    	<li><img src="img/about/sea_grant.png">Sea Grant Florida</li>
-	    	<li><img src="img/about/ariel.png">Ariel Seafoods Inc.</li>
-	    	<li data-role="list-divider">Bronze Sponsors</li>
-	    	<li><img src="img/about/st_pete.png">St. Petersburg Clearwater</li>
-	    	<li data-role="list-divider">Friends of NAAFE Sponsors</li>
-	    	<li><img src="img/about/gsa.png">Gulf &amp; South Atlantic Fisheries Foundation, Inc.</li>
-	    	<li><img src="img/about/sfa.png">Southeastern Fisheries Association</li>
-	    	<li><img src="img/about/anderson.png">Lee G. Anderson, University of Deleware</li>
-	    	<li><img src="img/about/tfg.png">Taylor &amp; Francis Group</li>
-	    	<li><img src="img/about/sfrc.png">School of Forest Resources &amp; Conservation</li>
-	    	<li data-role="list-divider">Partner Organizations</li>
-	    	<li><img src="img/about/gulf.png">Gulf States Marine Fisheries Commission</li>
-	    	<li><img src="img/about/guy.png">Guy Harvey Ocean Foundation</li>
-		</ul>
-		<p><b>Dinner Banquet Seafood Donors</b></p>
-		<ul>
-			<li>Wood's Fisheries</li>
-			<li>Ariel Seafoods, Inc.</li>
-			<li>Pontchartrain Blue Crab, Inc.</li>
-			<li>Motivatit Seafoods, LLC</li>
-		</ul>
-		<p><b>MRE Foundation Donors</b></p>
-		<ul>
-			<li>Gary's Tackle Box (fishing rod)</li>
-			<li>Bonefish Grill ($50 gift card)</li>
-			<li>Outback Steakhouse ($45 gift card)</li>
-			<li>Carrabba's Italian Grill ($25 gift card)</li>
-			<li>Macaroni Grill ($30 gift card)</li>
-			<li>Key’s Fisheries ($210 gift card)</li>
-			<li>Book: Preference Data for Environmental Valuation: Combining Revealed and Stated Approaches  by Whitehead, Haab and Huang ($155 value)</li>
-			<li>Nature's Landing Management Company (condo in Cedar Key, FL)</li>
-			<li>Wine and Cheese Gallery (1 bottle wine)</li>
-			<li>Cedar Key Boat Rental (1 day boat rental in Cedar Key, FL)</li>
-			<li>John Moran Photography and Talking Walls (framed nature photo)</li>
-			<li>Tony Reisinger, Texas Sea Grant Marine Agent (mounted fish print)</li>
-			<li>Chainsaw Sculptures (metal fish)</li>
-			<li>Guy Harvey fish painting ($300 value)</li>
-		</ul>
-		<p>2013-05-12v1</p>
     </div>
 </div>
 </body>

@@ -237,7 +237,7 @@ define(["backbone","jquery","views/ErrorView","views/MenuView",
         	$.mobile.changePage("#error",{role:"dialog"});        	
         },
         start: function(online) {
-			new AboutView({el: "#about"});
+			new AboutView({el: "#about", model: this.conference});
         	new MenuView({el: "#menu", model: this.conference, online: online, localstorage: true, messages: this.messages});
         	new ConferenceView({el: "#conference",  model: this.conference});
         	new SpeakersView({el: "#speakers", collection: router.speakers});
